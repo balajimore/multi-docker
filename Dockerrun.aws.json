@@ -3,24 +3,28 @@
     "containerDefinitions": [
         {
             "name": "client",
+            "memoryReservation": 200,
             "image": "balajimore/multi-client",
             "hostname": "client",
-            "essential": false
+            "essential": false            
         },
         {
             "name": "server",
+            "memoryReservation": 200,
             "image": "balajimore/multi-server",
             "hostname": "api",
             "essential": false
         },
         {
             "name": "worker",
+            "memoryReservation": 200,
             "image": "balajimore/multi-worker",
             "hostname": "worker",
             "essential": false
         },
         {
             "name": "nginx",
+            "memoryReservation": 200,
             "image": "balajimore/multi-nginx",
             "hostname": "nginx",
             "essential": true,
