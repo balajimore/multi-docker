@@ -9,17 +9,17 @@ services:
   nginx:
     #restart: always
     build: 
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./nginx
     ports: 
-      - '80:80'
+      - '3050:80'
   api:
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./server
-    # volumes: 
-    #   - /app/node_modules
-    #   - ./server:/app
+    volumes: 
+      - /app/node_modules
+      - ./server:/app
     environment: 
       - REDIS_HOST=redis # service name above used as `host` name. it is valid if both are in same dockercompose.
       - REDIS_PORT=6379
@@ -30,18 +30,18 @@ services:
       - PGPORT=5432
   client:
     build: 
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./client
-    # volumes: 
-    #   - /app/node_modules
-    #   - ./client:/app
+    volumes: 
+      - /app/node_modules
+      - ./client:/app
   worker:
     build: 
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./worker
-    # volumes: 
-    #   - /app/node_modules
-    #   - ./worker:/app
+    volumes: 
+      - /app/node_modules
+      - ./worker:/app
     environment: 
       - REDIS_HOST=redis # service name above used as `host` name. it is valid if both are in same dockercompose.
       - REDIS_PORT=6379
