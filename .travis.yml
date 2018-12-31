@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t dockube/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run dockube/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t dockube/multi-client ./client
+  - docker build -t dockube/multi-bginx ./nginx
+  - docker build -t dockube/multi-server ./server
+  - docker build -t dockube/multi-worker ./worker
+  # Log in to the docker CLI.
+  echo "$DOCKER_HUB_PASS" | docker login -u "$DOCKER_HUB_ID" --password-stdin
+  # Take these images and push them to docker hub.
+  - docker push dockube/multi-client
+  - docker push dockube/multi-nginx
+  - docker push dockube/multi-server
+  - docker push dockube/multi-worker  
