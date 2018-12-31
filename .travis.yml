@@ -1,4 +1,5 @@
 sudo: required
+
 services:
   - docker
 
@@ -14,7 +15,7 @@ after_success:
   - docker build -t dockube/multi-server ./server
   - docker build -t dockube/multi-worker ./worker
   # Log in to the docker CLI.
-  echo "$DOCKER_HUB_PASS" | docker login -u "$DOCKER_HUB_ID" --password-stdin
+  - echo "$DOCKER_HUB_PASS" | docker login -u "$DOCKER_HUB_ID" --password-stdin
   # Take these images and push them to docker hub.
   - docker push dockube/multi-client
   - docker push dockube/multi-nginx
