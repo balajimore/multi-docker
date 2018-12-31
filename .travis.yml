@@ -11,7 +11,7 @@ script:
 
 after_success:
   - docker build -t balajimore/multi-client ./client
-  - docker build -t balajimore/multi-bginx ./nginx
+  - docker build -t balajimore/multi-nginx ./nginx
   - docker build -t balajimore/multi-server ./server
   - docker build -t balajimore/multi-worker ./worker
   # Log in to the docker CLI.
